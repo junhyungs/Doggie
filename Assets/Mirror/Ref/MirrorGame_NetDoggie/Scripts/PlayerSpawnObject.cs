@@ -26,6 +26,10 @@ public class PlayerSpawnObject : NetworkBehaviour
 
     public void Update()
     {
+        string netTypeStr = isClient ? "클라" : "클라아님";
+
+        TextMesh_NetType.text = this.isLocalPlayer ? $"[로컬/{netTypeStr}]" : $"로컬아님/{netTypeStr}]{this.netId}";
+
         SetHealthBarOnUpdate(m_Health);
 
         if (CheckIsFocusedOnUpdate() == false)
@@ -69,7 +73,7 @@ public class PlayerSpawnObject : NetworkBehaviour
     }
     private void RotateLocalPlayer()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//마우스 포지션을 따라 회전
 
         if(Physics.Raycast(ray,out RaycastHit hit, 100))
         {
