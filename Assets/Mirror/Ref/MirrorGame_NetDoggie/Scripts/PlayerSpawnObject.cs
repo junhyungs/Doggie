@@ -40,10 +40,29 @@ public class PlayerSpawnObject : NetworkBehaviour
     }
     private bool CheckIsFocusedOnUpdate()
     {
-        return Application.isPlaying;
+        return Application.isFocused;
     }
     private void CheckIsLocalPlayerOnUpdate()
     {
+        if (this.isLocalPlayer == false)
+            return;
+
+        //로컬플레이어의 회전
+        float Horizontal = Input.GetAxis("Horizontal");
+        transform.Rotate(0, Horizontal * m_RotationSpeed * Time.deltaTime, 0);
+
+        //로컬플레이어의 이동
+        float Vertical = Input.GetAxis("Vertical");
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        NavAgent_Player.velocity = forward * Mathf.Max(Vertical, 0) * NavAgent_Player.speed;
+        Animator_Player.SetBool("Moving", NavAgent_Player.velocity != Vector3.zero);
+
+        //공격
+        if (Input.GetKeyDown(m_AtkKey))
+        {
+            CommandAtk();
+        }
+
 
     }
     //클라에서 서버로 호출은 하지만 로직의 동작은 서버사이드 온리
