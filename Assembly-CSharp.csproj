@@ -68,6 +68,8 @@
     <Compile Include="Assets\Mirror\Ref\MirrorGame_NetDoggie\Scripts\NetSpawnedSubObject.cs" />
     <Compile Include="Assets\Mirror\Ref\MirrorGame_NetDoggie\Scripts\PlayerSpawnObject.cs" />
     <Compile Include="Assets\Mirror\Ref\MirrorGame_NetDoggie\Scripts\AttackSpawnObject.cs" />
+    <Compile Include="Assets\Mirror\Ref\MirrorGame_NetDoggie\Scripts\MyScript\NetSpawnPlayerObject.cs" />
+    <Compile Include="Assets\Mirror\Ref\MirrorGame_NetDoggie\Scripts\MyScript\SpawnObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Mirror\Plugins\Mono.Cecil\Mono.CecilX.dll" />
