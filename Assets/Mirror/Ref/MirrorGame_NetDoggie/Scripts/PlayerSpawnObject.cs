@@ -99,7 +99,7 @@ public class PlayerSpawnObject : NetworkBehaviour
     [ServerCallback]
     private void OnTriggerEnter(Collider other)
     {
-        var atkGenObject = other.GetComponent<>();
+        var atkGenObject = other.GetComponent<AttackSpawnObject>();
 
         if (atkGenObject == null)
             return;

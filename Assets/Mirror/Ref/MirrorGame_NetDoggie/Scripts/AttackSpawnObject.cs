@@ -1,18 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
+using UnityEditor.Timeline;
 
-public class AttackSpawnObject : MonoBehaviour
+public class AttackSpawnObject : NetworkBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public float m_DestroyAfter = 5.0f;
+    public float m_Force = 1000;
+
+    public Rigidbody m_Rigidbody_AtkObject;
+
+    public override void OnStartServer()
     {
-        
+        Invoke(nameof(DestroySelf), m_DestroyAfter);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        m_Rigidbody_AtkObject.AddForce(transform.forward * m_Force);
+    }
+
+    [Server]//클라에서 호출되지 않도록 방지
+    private void DestroySelf()
+    {
+        NetworkServer.Destroy(this.gameObject);
+    }
+
+    [ServerCallback]
+    private void OnTriggerEnter(Collider other)
+    {
+        DestroySelf();
     }
 }
