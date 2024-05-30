@@ -63,19 +63,36 @@ public class PlayerSpawnObject : NetworkBehaviour
             CommandAtk();
         }
 
+        //회전
+        RotateLocalPlayer();
 
+    }
+    private void RotateLocalPlayer()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if(Physics.Raycast(ray,out RaycastHit hit, 100))
+        {
+            Debug.DrawRay(ray.origin, hit.point);
+            Vector3 lookRotate = new Vector3(hit.point.x, Transform_Player.position.y, hit.point.z);
+            Transform_Player.LookAt(lookRotate);
+        }
     }
     //클라에서 서버로 호출은 하지만 로직의 동작은 서버사이드 온리
     [Command]
     private void CommandAtk()
     {
+        GameObject attackObjectForSpawn = Instantiate(m_Prefab_AtkObject, m_Transform_AtkSpawnPos.transform.position,m_Transform_AtkSpawnPos.rotation);
+        NetworkServer.Spawn(attackObjectForSpawn); //서버에서도 오브젝트를 스폰하기 위해서
 
+        RpcOnAttack();
     }
 
     [ClientRpc]
     private void RpcOnAttack()
     {
-
+        Debug.LogWarning($"{this.netId}가 RPC호출함");
+        Animator_Player.SetTrigger("Atk");
     }
     //클라에서 다음 함수가 실행되지 않도록 ServerCallbak을 달아줌
     [ServerCallback]
