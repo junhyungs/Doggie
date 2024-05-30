@@ -94,10 +94,22 @@ public class PlayerSpawnObject : NetworkBehaviour
         Debug.LogWarning($"{this.netId}가 RPC호출함");
         Animator_Player.SetTrigger("Atk");
     }
+
     //클라에서 다음 함수가 실행되지 않도록 ServerCallbak을 달아줌
     [ServerCallback]
     private void OnTriggerEnter(Collider other)
     {
+        var atkGenObject = other.GetComponent<>();
+
+        if (atkGenObject == null)
+            return;
+
+        m_Health--;
+
+        if(m_Health <= 0)
+        {
+            NetworkServer.Destroy(this.gameObject);
+        }
         
     }
 

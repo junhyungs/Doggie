@@ -67,6 +67,7 @@
     <Compile Include="Assets\Mirror\Ref\MirrorChat_Danitech\Scripts\NetworkingAuthenticator.cs" />
     <Compile Include="Assets\Mirror\Ref\MirrorGame_NetDoggie\Scripts\NetSpawnedSubObject.cs" />
     <Compile Include="Assets\Mirror\Ref\MirrorGame_NetDoggie\Scripts\PlayerSpawnObject.cs" />
+    <Compile Include="Assets\Mirror\Ref\MirrorGame_NetDoggie\Scripts\AttackSpawnObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Mirror\Plugins\Mono.Cecil\Mono.CecilX.dll" />
